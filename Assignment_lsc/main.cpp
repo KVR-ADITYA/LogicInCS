@@ -2,9 +2,9 @@
 #include<stack>
 #include<string>
 using namespace std;
-int isOperator(char i)
+bool isOperator(char i)
 {
-    int j=0;
+    int j=false;
 
     switch(i)
     {
@@ -13,7 +13,7 @@ int isOperator(char i)
     case '>':
     case '(':
     case ')':
-        j=1;
+        j=true;
 
     }
     return j;
@@ -45,9 +45,9 @@ string infixToPostfix(string s)
     string pf="";
     for (unsigned i=0;i<s.length();i++)
     {
-     while(isOperator(s[i]))
+     if(isOperator(s[i]))
      {
-         if(!st.empty() && s[i]!= '(' && higherPrecedence(st.top(),s[i]))
+         if(!st.empty() && (s[i]!= '(' || higherPrecedence(st.top(),s[i])))
          {
           pf+=st.top();
           st.pop();
@@ -66,12 +66,13 @@ string infixToPostfix(string s)
 
         }
      }
-     while(!isOperator(s[i]))
+     if(!isOperator(s[i]))
      {
          pf.push_back(s[i]);
      }
 
     }
+    st = stack<char>();
     return pf;
 }
 
