@@ -11,6 +11,7 @@ bool isOperator(char i)
     case 'V':
     case '^':
     case '>':
+    case '~':
     case '(':
     case ')':
         j=true;
@@ -30,8 +31,6 @@ int weight(char o)
     case '^':
     case 'V':
         weight=1;
-
-
     }
     return weight;
 }
@@ -45,10 +44,25 @@ int higherPrecedence(char x,char y)
 string infixToPostfix(string s)
 {
     stack<char> st;
+    stack<char> neg;
     string pf="";
     for (unsigned i=0;i<s.length();i++)
     {
-     if(isOperator(s[i]))
+        if(!isOperator(s[i]))
+     {
+         pf+=s[i];
+     }
+        if(!neg.empty())
+        {
+            pf+=neg.top();
+            neg.pop();
+        }
+        if(s[i]=='~')
+        {
+            neg.push(s[i]);
+        }
+
+     if(isOperator(s[i]) && s[i]!='~')
      {
          if(!st.empty())
          {
@@ -82,11 +96,6 @@ string infixToPostfix(string s)
              st.push(s[i]);
          }
      }
-     if(!isOperator(s[i]))
-     {
-         pf.push_back(s[i]);
-     }
-
     }
     st = stack<char>();
 
