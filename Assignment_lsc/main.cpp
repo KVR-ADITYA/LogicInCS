@@ -23,6 +23,8 @@ int weight(char o)
     int weight = -1;
     switch(o)
     {
+
+
     case '>':
         weight=0;
     case '^':
@@ -37,7 +39,8 @@ int higherPrecedence(char x,char y)
 {
     int x_weight = weight(x);
     int y_weight = weight(y);
-    return (x_weight>y_weight)?1:0 ;
+
+    return (x_weight>=y_weight)?1:0 ;
 }
 string infixToPostfix(string s)
 {
@@ -47,24 +50,37 @@ string infixToPostfix(string s)
     {
      if(isOperator(s[i]))
      {
-         if(!st.empty() && (s[i]!= '(' || higherPrecedence(st.top(),s[i])))
+         if(!st.empty())
          {
-          pf+=st.top();
-          st.pop();
-          st.push(s[i]);
+             while(st.top()!='('&& higherPrecedence(st.top(),s[i]) && s[i]!='(' )
+             {
+                 pf+=st.top();
+                 st.pop();
+             }
+             if(!higherPrecedence(st.top(),s[i]))
+             {
+                 st.push(s[i]);
 
+             }
+             if(s[i]=='(')
+             {
+                 st.push(s[i]);
+             }
+             if(s[i]==')'&& st.top()!='(')
+             {
+                 pf+=st.top();
+                 st.pop();
+                 st.pop();
+             }
+             if(s[i]==')'&& st.top()=='(')
+             {
+                 st.pop();
+             }
          }
-        else if(!st.empty() && s[i]==')')
-        {
-            pf.push_back(st.top());
-            st.pop();
-            st.pop();
-        }
-        else if(st.empty() || s[i]=='(')
-        {
-            st.push(s[i]);
-
-        }
+         else
+         {
+             st.push(s[i]);
+         }
      }
      if(!isOperator(s[i]))
      {
@@ -73,6 +89,7 @@ string infixToPostfix(string s)
 
     }
     st = stack<char>();
+
     return pf;
 }
 
@@ -84,5 +101,6 @@ int main()
     string pf;
     pf=infixToPostfix(s);
     cout<<pf;
+
     return 0;
 }
