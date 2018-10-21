@@ -102,7 +102,7 @@ string infixToPostfix(string s)
     return pf;
 }
 
-int main()
+int main2()
 {
     string s;
     cout <<"enter infix formula"<<endl;
