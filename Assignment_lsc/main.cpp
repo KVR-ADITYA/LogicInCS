@@ -1,7 +1,5 @@
-#include<iostream>
-#include<stack>
-#include<string>
 using namespace std;
+#include<string>
 bool isOperator(char i)
 {
     int j=false;
@@ -102,7 +100,7 @@ string infixToPostfix(string s)
     return pf;
 }
 
-int main2()
+string main2()
 {
     string s;
     cout <<"enter infix formula"<<endl;
@@ -111,5 +109,5 @@ int main2()
     pf=infixToPostfix(s);
     cout<<pf;
 
-    return 0;
+    return pf;
 }

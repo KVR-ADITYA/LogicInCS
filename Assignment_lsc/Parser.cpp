@@ -1,46 +1,58 @@
-#include "main.cpp"
-#include<vector>
 #include<iostream>
+#include<vector>
 #include<stack>
 #include<string>
+#include "main.cpp"
+#include<malloc.h>
 using namespace std;
-class Tree
+typedef struct Tree
 {
-    Tree *l;
-    Tree *r;
     char p;
     string s;
-    subTree(string s,Tree t)
+    Tree *l;
+    Tree *r;
+}Tree;
+ void subTree(string s,Tree *t)
     {
-        int i = s.length();
-        t.p = s[i-1]
-        if(!isOperator(t.p))
+
+        t->p = s[s.length()-1];
+        t->r = (Tree*)(malloc(sizeof(s)+2));
+        t->l = (Tree*)(malloc(sizeof(s)+2));
+        if(!isOperator(t->p))
         {
-            t.*l=nullptr;
-            t.*r=nullptr;
+            t->l=NULL;
+            t->r=NULL;
         }
-        if(isOperator(t.p)&&t.p!='~')
+        if(isOperator(t->p)&&t->p!='~')
         {
-            if(isOperator(s[i-2]))
+            if(isOperator(s[s.length()-2]))
             {
-                subTree(s.pop_back(),r);
+                subTree(s=s.substr(0,s.length()-2),t->r);
+
+                    subTree(s=s.substr(0,s.length()),t->l);
+
             }
             else
             {
-                subTree(s.pop_back(),l);
+                subTree(s.substr(0,s.length()-2),t->l);
             }
         }
-        if(t.p=='~')
+        if(t->p=='~')
         {
-            t.*l=nullptr;
-            subTree(s.pop_back(),r);
+            t->l=NULL;
+            subTree(s.substr(0,s.length()-1),t->r);
         }
+        return;
     }
 
-};
+
 
 int main()
 {
-    cout<<higherPrecedence('(','^');
+    string pf=main2();
+    Tree *t = (Tree*)(malloc(sizeof(pf)+3));
+    t->s=pf;
+    subTree(pf,t);
+    cout<<"\n gfhfhdh"<<t->p;
     return 0;
 }

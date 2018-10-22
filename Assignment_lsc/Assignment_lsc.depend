@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1539946244 source:i:\logicincs\assignment_lsc\main.cpp
+1540128175 source:i:\logicincs\assignment_lsc\main.cpp
 	<iostream>
 	<stack>
 	<string>
