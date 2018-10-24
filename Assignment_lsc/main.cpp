@@ -1,5 +1,7 @@
 using namespace std;
+#include<stack>
 #include<string>
+#include<iostream>
 bool isOperator(char i)
 {
     int j=false;
