@@ -2,6 +2,19 @@ using namespace std;
 #include<stack>
 #include<string>
 #include<iostream>
+int bracketMatcher(string s,int i)
+{
+    int j=i+1;
+    while(s[j]!=')')
+    {
+        if(s[j]=='(')
+        {
+            j=bracketMatcher(s,j);
+        }
+        j++;
+    }
+    return j;
+}
 bool isOperator(char i)
 {
     int j=false;
@@ -46,20 +59,32 @@ string infixToPostfix(string s)
     stack<char> st;
     stack<char> neg;
     string pf="";
+    stack<unsigned> j;
     for (unsigned i=0;i<s.length();i++)
     {
         if(!isOperator(s[i]))
      {
          pf+=s[i];
      }
+     if(!j.empty() && i==j.top()+1)
+     {
+         pf+='~';
+         j.pop();
+     }
         if(!neg.empty())
         {
             pf+=neg.top();
             neg.pop();
         }
-        if(s[i]=='~')
+        if(s[i]=='~' && s[i+1]!='(')
         {
             neg.push(s[i]);
+        }
+        if(s[i]=='~' && s[i+1]=='(')
+        {
+            int k=i+1;
+            j.push(bracketMatcher(s,k));
+
         }
 
      if(isOperator(s[i]) && s[i]!='~')
@@ -110,6 +135,5 @@ string main2()
     string pf;
     pf=infixToPostfix(s);
     cout<<pf;
-
     return pf;
 }

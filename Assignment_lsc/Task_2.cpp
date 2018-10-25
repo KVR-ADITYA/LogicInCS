@@ -27,6 +27,18 @@ void printInfix(Node *x)
     r=(Node*)(malloc(sizeof(Node)));
     l=x->left;
     r=x->right;
+    if(l==NULL && !isOperator(r->p))
+    {
+        cout<<"("<<x->p<<r->p<<")";
+        return;
+    }
+    if(l==NULL && isOperator(r->p))
+    {
+        cout<<x->p;
+        printInfix(r);
+        return;
+    }
+
     if(!isOperator(l->p) && !isOperator(r->p))
     {
         cout<<"("<<l->p << x->p << r->p<<")" ;
@@ -79,7 +91,7 @@ int main()
             n->right =(sta.top());
             sta.pop();
             sta.push(n);
-            n->left->p=' ';
+            n->left=NULL;
         }
     }
     cout<<"\n\n";
