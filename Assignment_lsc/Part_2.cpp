@@ -5,12 +5,18 @@
 using namespace std;
 typedef struct Sta
 {
-    string s;
-    string d;
-    string c;
-    int  a;
-    int b;
+    string s;///< it is the statement in the given line
+    string d;///< it is the total string stored in  a line
+    string c;///< it is the proof rule used
+    int  a;///< a is the 1st number after c
+    int b;///< a is the 2nd number after c
 }Sta;
+/**
+*\brief it compares two strings
+*\param s1,s2 datatype :string
+*\return returns 0 if strings are not equal else returns 1
+*
+*/
 int stcmp(string s1,string s2)
 {
     if(s1.length()==s2.length())
@@ -33,6 +39,12 @@ int stcmp(string s1,string s2)
         return 0;
     }
 }
+/**
+*\brief checks whether a given set of rules are valid or not
+*\param an array and an integer
+*\return returns true if statements hold else false
+*this functions checks the validity of each line of the input following some set of rules (^i,^e,Vi,>e and P)and continues till the last line valid but returns false even if one line is false
+*/
 bool isValid(Sta a[],int n)
 {
     for(int i=0;i<n;i++)
@@ -177,13 +189,17 @@ bool isValid(Sta a[],int n)
         }
     }
 }
+/**
+*\brief it is the main method.
+*it takes each line as input and splits the statement into different parts and stores them in different parts of the structure(s,d,c,a and b).It then passes array of structures to the isValid()function
+*/
 int main()
 {
-    int x;
+    int x;///< it is the number of lines that need to be taken in
     cout<<"enter the number of lines: ";
     cin>>x;
     cout<<"\n"<<x<<"\n";
-    Sta a[x];
+    Sta a[x];///< it an array of structure Sta which has s,d,c,a and b pre-defined
     for(int i=0;i<x;i++)
 {
     cout<<i+1<<".";

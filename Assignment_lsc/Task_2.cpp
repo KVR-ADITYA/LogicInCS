@@ -3,22 +3,40 @@
 #include<string>
 #include<malloc.h>
 #include "main.cpp"
+
 using namespace std;
+/**
+*\brief it is a class to define node of a parse tree
+*it has a character(p) and two pointers(left and right) stored in it
+*/
 class Node
 {
     public:
-    char p;
-    Node* left;
-    Node* right;
+    char p;///< it is the main character that exists in the node
+    Node* left;///< it is the pointer to the left Node
+    Node* right;///< it is the pointer to the right Node
+    /**
+    *\brief it is a default constructor
+    *\param no parameters
+    */
     Node()
     {
 
     }
+    /**
+    *\brief it is a parameterized constructor
+    *\param it takes in a parameter and initializes the main character in the Node
+    */
     Node (char x)
     {
         p=x;
     }
 };
+/**
+*\brief it is the function that actually prints the infix by in-order traversal
+*\param a pointer to the root Node (the apex of any parse tree)
+*This function prints the infix notation of the given parse tree by recurssion i.e it prints left tree then the character in the node it is present in the it prints the right tree reccursively.Thus, the lefmost element gets printed first and then the lefmost operator and so on.
+*/
 void printInfix(Node *x)
 {
     Node *l;
@@ -63,6 +81,11 @@ void printInfix(Node *x)
     }
 
 }
+/**
+*\brief It is the main method and it also generates the parse tree and prints it
+*in this method we get the input from the previous file ,which is the postfix of an expression,then we declare a stack of pointers to Node objects and then the for  loop generates the parse tree
+*it then sends the pointer to the first Node to printInfix function
+*/
 int main()
 {
     string pf=main2();
